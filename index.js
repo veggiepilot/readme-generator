@@ -1,6 +1,7 @@
 
 const inquirer = require('inquirer');
 const fs       = require('fs');
+const generateMarkdown = require('./util/generateMarkdown');
 
 const promptUser = () => {
     return inquirer.prompt([
@@ -35,8 +36,8 @@ const promptUser = () => {
             message: 'Please describe any test instructions for your project.' 
         },
         {
-            type: 'checkbox',
-            name: 'licenseOptions',
+            type: 'list',
+            name: 'license',
             message: 'Choose a license for your README.',
             choices: [
                 'Apache 2', 
@@ -70,59 +71,11 @@ const promptUser = () => {
             name: 'githubUsername',
             message: 'What is your github username?' 
         }
-    
     ])
 } ;
-
-const readMeMarkup = (answers) => 
-`# README Generator
-https://img.shields.io/npm/l/inquirer
-
-## Description
-
-${answers.description}
-
-## Table of Contents
-
-- [INSTALLATION](#Installation)
-- [USAGE](#Usage)
-- [CONTRIBUTING](#Contributing)
-- [TESTS](#Tests)
-- [QUESTIONS](#Questions)
-- [LICENSE](#License)
-
-## Installation
-
-${answers.installationInstructions}
-
-
-## Usage
-
-${answers.information}
-
-## Contributing
-
-${answers.guidelines}
-
-## Tests
-
-${answers.testInstructions}
-
-## Questions
-
-If you have any questions or concerns pertaining to this project, please do not hesitate to contact me at ${answers.emailAddress} and you can find me on github at https://github.com/${answers.githubUsername}
-
-## License
-
-Copyright (c) Johannes Chitura. All rights reserved.
-
-Licensed under the [MIT](LICENSE.txt) license.
-`;
-
 const generateReadMe = () => {
     promptUser()
-        .then((answers) => fs.writeFile('README.md', readMeMarkup(answers), (err) => console.error(err)))
-        .then(() => console.log('Successfully wrote to README.md'))
+        .then((answers) => fs.writeFile('README.md', generateMarkdown(answers), (err) => console.error(err)))
 };
 
 generateReadMe();
