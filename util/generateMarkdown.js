@@ -21,14 +21,25 @@ let licenses = [
         licenseName: 'Mozilla',
         licenseImage: '[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)]',
         licenseLink: '(https://opensource.org/licenses/MPL-2.0)'
-    } 
+    },
+
+    {
+        licenseName: 'BSD',
+        licenseImage: '[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)]',
+        licenseLink: '(https://opensource.org/licenses/BSD-3-Clause)' 
+    }, 
+
+    {
+        licenseName: 'IBM',
+        licenseImage: '[![License: IPL 1.0](https://img.shields.io/badge/License-IPL%201.0-blue.svg)]',
+        licenseLink: '(https://opensource.org/licenses/IPL-1.0)' 
+    }
 ]
 
 // Rendering the license badge.
 function renderLicenseBadge(license) {
     for ( let licenseObj of licenses ) {
         if (licenseObj.licenseName === license) {
-            console.log(licenseObj.licenseImage);
             return licenseObj.licenseImage
         }
     }
@@ -77,7 +88,6 @@ function renderTechnologiesUsed(data) {
 
   // Generating markdown for README
 function generateMarkdown(data) {
-        console.log(data);
 return `
 # ${data.title}
 ${renderLicenseBadge(data.license)}${renderLicenseLink(data)}

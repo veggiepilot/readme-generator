@@ -40,14 +40,12 @@ const promptUser = () => {
             name: 'license',
             message: 'Choose a license for your README.',
             choices: [
-                'Apache 2', 
+                'Apache2', 
+                'GNUGPv3',
+                'IBM',
                 'BSD',
-                'GPL',
-                'GNU Library or "Lesser" General Public License (LGPL)',
                 'MIT',
-                'Mozilla Public License 2.0',
-                'Common Development and Distribution License',
-                'Eclipse Public License version 2.0'
+                'Mozilla',
             ]
         },
         {
@@ -75,7 +73,8 @@ const promptUser = () => {
 } ;
 const generateReadMe = () => {
     promptUser()
-        .then((answers) => fs.writeFile('README.md', generateMarkdown(answers), (err) => console.error(err)))
+        .then((answers) => fs.writeFile('README.md', generateMarkdown(answers), () => console.error('Your file has been generated!')))
+        .catch((err) => {console.log(err)})
 };
 
 generateReadMe();
